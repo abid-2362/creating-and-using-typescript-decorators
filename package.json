@@ -1,0 +1,20 @@
+{
+  "name": "creating-and-using-typescript-decorators",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abid-2362/creating-and-using-typescript-decorators.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abid-2362/creating-and-using-typescript-decorators/issues"
+  },
+  "homepage": "https://github.com/abid-2362/creating-and-using-typescript-decorators#readme"
+}
