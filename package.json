@@ -2,7 +2,7 @@
   "name": "creating-and-using-typescript-decorators",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w",
@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/abid-2362/creating-and-using-typescript-decorators/issues"
   },
-  "homepage": "https://github.com/abid-2362/creating-and-using-typescript-decorators#readme"
+  "homepage": "https://github.com/abid-2362/creating-and-using-typescript-decorators#readme",
+  "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.9",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
 }
