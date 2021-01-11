@@ -2,7 +2,7 @@ import { db } from './app';
 import * as uuid from 'uuid';
 import express, { Router, Request, Response } from 'express';
 import BaseEntity, { EntityTypeInstance, EntityFactory } from './entities/BaseEntity';
-import { validate, logRoute } from './decorators';
+import { auth, validate, logRoute } from './decorators';
 
 export default class EntityRouter<T extends BaseEntity> {
   private _router: Router;
@@ -43,6 +43,7 @@ export default class EntityRouter<T extends BaseEntity> {
     });
   }
   
+  @auth("reader")
   @logRoute
   private fetchAllEntities(req: Request, res: Response) {
     let data = {};
@@ -50,6 +51,7 @@ export default class EntityRouter<T extends BaseEntity> {
     res.json(data);
   }
   
+  @auth("reader")
   @logRoute
   private fetchEntity(req: Request, res: Response) {
     let data = {};
@@ -57,6 +59,7 @@ export default class EntityRouter<T extends BaseEntity> {
     res.json(data);
   }
   
+  @auth("writer")
   @logRoute
   private createEntity(req: Request, res: Response) {
     let newEntity = EntityFactory.fromPersistenceObject<T>(req.body, this.classRef);
@@ -68,10 +71,17 @@ export default class EntityRouter<T extends BaseEntity> {
     }
     const idProperty = Reflect.getMetadata('entity:id', newEntity);
     newEntity[ idProperty ] = uuid.v4();
-    db.push(`/${this.name}/${newEntity[ idProperty ]}`, newEntity.getPersistenceObject());
+    try {
+      db.push(`/${this.name}/${newEntity[ idProperty ]}`, newEntity.getPersistenceObject());
+    } catch (err) {
+      console.error(err);
+      res.status(400).json(err.message);
+      return;
+    }
     res.status(200).json(newEntity);
   }
   
+  @auth("writer")
   @logRoute
   private updateEntity(req: Request, res: Response) {
     // Does entity exist with ID
@@ -105,6 +115,7 @@ export default class EntityRouter<T extends BaseEntity> {
     res.json(data);
   }
   
+  @auth("deleter")
   @logRoute
   private deleteEntity(req: Request, res: Response) {
     db.delete(`/${this.name}/${req.params.id}`);

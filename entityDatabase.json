@@ -1,32 +1,42 @@
 {
-  "people": [],
-  "users": {
-    "david": {
-      "password": "mypassword",
-      "permissions": {
-        "people": [
-          "reader",
-          "writer"
-        ]
-      }
+    "people": {
+        "228dadbc-50b6-403a-88b3-dbb853e1ff63": {
+            "id": "228dadbc-50b6-403a-88b3-dbb853e1ff63",
+            "firstName": "Abid",
+            "lastName": "Ali",
+            "email": "abid@globomantics.com",
+            "department": "IT",
+            "mobileNumber": "+14084310621",
+            "age": 31
+        }
     },
-    "jessi": {
-      "password": "mypassword",
-      "permissions": {
-        "people": [
-          "reader"
-        ]
-      }
-    },
-    "abid": {
-      "password": "mypassword",
-      "permissions": {
-        "people": [
-          "reader",
-          "writer",
-          "deleter"
-        ]
-      }
+    "users": {
+        "david": {
+            "password": "mypassword",
+            "permissions": {
+                "people": [
+                    "reader",
+                    "writer"
+                ]
+            }
+        },
+        "jessi": {
+            "password": "mypassword",
+            "permissions": {
+                "people": [
+                    "reader"
+                ]
+            }
+        },
+        "abid": {
+            "password": "mypassword",
+            "permissions": {
+                "people": [
+                    "reader",
+                    "writer",
+                    "deleter"
+                ]
+            }
+        }
     }
-  }
 }
