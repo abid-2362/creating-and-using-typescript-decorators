@@ -2,7 +2,7 @@ import { db } from './app';
 import * as uuid from 'uuid';
 import express, { Router, Request, Response } from 'express';
 import BaseEntity, { EntityTypeInstance, EntityFactory } from './entities/BaseEntity';
-import { logRoute } from './decorators';
+import { validate, logRoute } from './decorators';
 
 export default class EntityRouter<T extends BaseEntity> {
   private _router: Router;
@@ -60,6 +60,12 @@ export default class EntityRouter<T extends BaseEntity> {
   @logRoute
   private createEntity(req: Request, res: Response) {
     let newEntity = EntityFactory.fromPersistenceObject<T>(req.body, this.classRef);
+    let errorMap = validate(newEntity);
+    if ( Object.keys(errorMap).length > 0 ) {
+      const output = { errors: errorMap };
+      res.status(400).json(output);
+      return;
+    }
     const idProperty = Reflect.getMetadata('entity:id', newEntity);
     newEntity[ idProperty ] = uuid.v4();
     db.push(`/${this.name}/${newEntity[ idProperty ]}`, newEntity.getPersistenceObject());
@@ -83,6 +89,14 @@ export default class EntityRouter<T extends BaseEntity> {
     const propKeys = Object.keys(updateData);
     for ( const propKey of propKeys ) {
       updatedObj[ propKey ] = updateData[ propKey ];
+    }
+    
+    // Validate
+    let errorMap = validate(updatedObj);
+    if ( Object.keys(errorMap).length > 0 ) {
+      const output = { errors: errorMap };
+      res.status(400).json(output);
+      return;
     }
     
     // Save and Return data

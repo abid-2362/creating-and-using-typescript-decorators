@@ -23,7 +23,8 @@
       "permissions": {
         "people": [
           "reader",
-          "writer"
+          "writer",
+          "deleter"
         ]
       }
     }
