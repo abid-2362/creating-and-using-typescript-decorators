@@ -37,7 +37,8 @@ class Person {
     this._directReports = [];
   }
   
-  @logMethod('Method Decorator')
+  @logMethod('Method Decorator 1')
+  @logMethod('Method Decorator 2')
   public addDirectReport(@logParamerer('Parameter Decorator') person: Person) {
     this._directReports.push(person);
   }
